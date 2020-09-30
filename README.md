@@ -2,7 +2,7 @@
 ## Fall 2020
 ## Project 1: A "data story" on how Americans vote
 
-<img src="figs/pic.png" width="500">
+<img src="figs/pic.jpg" width="500">
 
 ### [Project Description](doc/)
 This is the first and only *individual* (as opposed to *team*) this semester. 
