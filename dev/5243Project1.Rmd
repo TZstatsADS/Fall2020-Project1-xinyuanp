@@ -1,0 +1,162 @@
+---
+title: "Do Millennials care about politics?"
+author: "Xinyuan Peng"
+date: "2020/9/23"
+output: html_document
+---
+#### GR5243
+#### Project1
+
+<style type="text/css">
+  body{
+  font-size: 14pt;
+}
+</style>
+
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Introduction
+```{r, echo=FALSE, message=FALSE}
+knitr::include_graphics("C:/Users/60171/Documents/GitHub/Fall2020-Project1-xinyuanp/figs/pic.jpg")
+```
+
+*"When It Comes to Politics, Do Millennials Care About Anything?"*, the Article posted on the Atlantic caught our attention. Millennials, who were born between 1981 and 1996, have been labeled with countless negative qualities. One main criticism of millennials is their lack of political concern. However, is it true to label them being indifferent about politics? We are going to testify the argument based on the data from 2020 Exploratory Testing Survey.
+
+The survey content was shaped to a significant degree by ideas offered by the ANES user community through public solicitations and by members of the ANES national advisory board. Additional questions were included to capture changes in the political environment and recent developments in social science research. The questionnaire includes questions about voting behavior, candidate traits, political engagement, ideological orientations, racial identity and stereotyping, and many topical issues including #MeToo, immigration, impeachment, and the coronavirus pandemic.
+
+We are going to focus on the following 3 aspects:
+
+   1. Registration rate comparation
+   2. How often do they follow politics
+   3. Participantion rate of political activities comparation
+
+
+```{r, echo=FALSE, message=FALSE}
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(formattable)
+library(reshape2)
+anes <- read_csv("~/GitHub/Fall2020-Project1-xinyuanp/data/anes_pilot_2020ets_csv.csv")
+#There are 820 people are millennials in survey
+m <-anes%>%filter(birthyr%in%(1981:1996))
+```
+
+
+# Sample Population vs. True Population
+Before we start analyzing, let's take a look at the dataset, especially the birth year distribution because our analysis will base on respondents' birth year and detect the differences among different ages.
+```{r, echo=FALSE, message=FALSE}
+library(ggplot2)
+hist(anes$birthyr, col="lightblue", main="Histogram of all Respondents' Birth Year",xlab = "Year", labels=T,ylim=c(0,700))
+```
+
+In total, there are 3080 respondents. According to the plot above, the majority of respondents are born in 1950s or 1980s, which is consistent with the true population because Millennials and Baby Boomers are two largest living adult generations in the nation, according to the information from the U.S. Census Bureau.
+
+In addition, we have 820 out of 3080 respondents(26.6%) are Millennials, which is consistent with the true population distribution. Therefore, the following analysis based on the 2020 Exploratory Testing Survey provides a reference to the reality.
+
+# 1. Registration Rate Comparation
+First, we will compare respondents' registration rate.
+```{r, echo=FALSE, message=FALSE,fig.width=14}
+par(mfrow=c(1,2))
+#Millennials Registration
+#table(m$reg1)
+slices_reg1=c(663,39,92,26)
+lbls_reg1=c("Yes, with current address","Yes, with a different address","No","Don’t know")
+pct_reg1 <- round(slices_reg1/sum(slices_reg1)*100)
+lbls_reg1 <- paste(lbls_reg1, pct_reg1) # add percents to labels
+lbls_reg1 <- paste(lbls_reg1,"%",sep="") # ad % to labels
+pie(slices_reg1,labels = lbls_reg1, col=blues9,
+   main="Millennials Registration to Vote")
+
+#All Respondents Follow politics
+#table(anes$reg1)
+slices_reg2=c(2613,101,304,62)
+lbls_reg2=c("Yes, with current address","Yes, with a different address","No","Don’t know")
+pct_reg2 <- round(slices_reg2/sum(slices_reg2)*100)
+lbls_reg2 <- paste(lbls_reg2, pct_reg2) # add percents to labels
+lbls_reg2 <- paste(lbls_reg2,"%",sep="") # ad % to labels
+pie(slices_reg2,labels = lbls_reg2, col=blues9,
+   main="All Respondents Registration to Vote")
+```
+
+By contrast, 86% of Millennials have registered, which is lower than overall condition(88%). It is worth noting that there are 5% of Millennials have registered with a different address, which is higher than overall condition(3%). The reason might be that, more Milliennials are working or studying away from home. 
+
+**Therefore, Millennials have a slightly smaller proportion of registration than all respondents, which is insufficient to say that they are lack of political concerns.**
+
+# 2. How often do they follow politics
+Second, we will compare respodents' frequency of following politics
+```{r, echo=FALSE, message=FALSE,fig.width=12}
+par(mfrow=c(1,2))
+#Millennials Follow politics
+m_follow <- m%>%filter(follow%in%(1:4))
+#table(m_follow$follow)
+slices=c(443,242,80,54)
+lbls=c("Most of the time","Some of the time","Now and then","Hardly")
+pct <- round(slices/sum(slices)*100)
+lbls <- paste(lbls, pct) # add percents to labels
+lbls <- paste(lbls,"%",sep="") # ad % to labels
+pie(slices,labels = lbls, col=blues9,
+   main="Millennials Following Politics")
+
+#All Respondents Follow politics
+anes_follow <- anes%>%filter(follow%in%(1:4))
+slices_all=c(1736,880,293,170)
+lbls_all=c("Most of the time","Some of the time","Now and then","Hardly")
+pct_all <- round(slices_all/sum(slices_all)*100)
+lbls_all <- paste(lbls_all, pct_all) # add percents to labels
+lbls_all <- paste(lbls_all,"%",sep="") # ad % to labels
+pie(slices_all,labels = lbls_all, col=blues9,
+   main="All Respondents Following Politics")
+
+```
+
+By contrast, 54% of Millennials follow politics most of the time, which is lower than overall condition(56%). But 30% of Millennials follow politics some of the time, which is higher than overall condition(29%).
+
+**Therefore, Millennials have nearly the same frequency of following politics.**
+
+# 3. Participantion rate of political activities
+Third, we will compare respodents' participantion rate of 8 kinds of political activities during the past 12 months. 
+Here are the explainations of 8 kinds of political activities:
+
+   * meeting: Attended a meeting to talk about political or social concerns
+   * moneyorg: Given money to an organization concerned with a political or social issue
+   * protest: Joined in a protest march, rally, or demonstration
+   * online: Posted a message or comment online about a political issue or campaign
+   * persuade: Tried to persuade anyone to vote one way or another
+   * button: Worn a campaign button, put a sticker on your car, or placed a sign in your window or in front of your house
+   * moneycand: Given money to any candidate running for public office, any political party, or any other group that supported or opposed candidates
+   * argument: Gotten into a political argument with someone
+   * particip_none: None of these
+   
+
+```{r, echo=FALSE, message=FALSE,fig.width=12}
+#Computing the percentage of participanting for each activities
+m_part <- m%>%select(meeting, moneyorg, protest, online, persuade, button, moneycand, argument, particip_none)
+anes_part <- anes%>%select(meeting, moneyorg, protest, online, persuade, button, moneycand, argument, particip_none)
+
+count_tbl <- tibble(colnames(m_part),colSums(m_part), colSums(anes_part))%>%rename(activity="colnames(m_part)", m="colSums(m_part)", all="colSums(anes_part)")
+percent_tbl <- count_tbl%>%mutate(percent_m = percent(m/sum(m)),
+                                  perfent_all = percent(all/sum(all)))
+#reshape data to prepare of the plot
+melted <- melt(percent_tbl[c(1,4,5)],id='activity')
+
+#Draw the plot of 8 kinds of activities
+ggplot(melted,aes(x=activity, y=value, fill=variable, label =TRUE))+
+   geom_bar(stat="identity",alpha=0.8, position = "dodge")+
+   geom_text(aes(label=value), vjust=-0.3, size=3.5)+
+   ggtitle("Participation rate of political activities")+
+   labs(y="percentage")+
+   scale_fill_discrete(name = "Groups", labels = c("Millennials", "All Respondents"))
+   
+   
+```
+
+By contrast, around 83% of Millennials participated in at least one kind of political activities, which is much higher than overall condition(76%). Except argument and online, Millennials have higher participation rate in other 6 kinds of activities. It is worth noting that Millennials participation rates are very different from overall conditions in argument, meeting, and protest: Millennials are relatively more often to attended a meeting to talk about political or social concerns; Millennials are relatively seldom to get into a political argument with someone; Millennials are relatively more often to join in a protest march, rally, or demonstration.
+
+# Conclusion
+Millennials have a slightly lower registration rate, but they share a similar frequency with all respondents of following politics. In addtion, they have a higher participation rate in political activities, especially in attending meetings to talk about politics and joining in protest marches.
+
+**Therefore, the argument that 'Millennials are indifferent in politics' is inconsistent with our analysis above. **
