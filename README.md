@@ -2,17 +2,17 @@
 ## Fall 2020
 ## Project 1: A "data story" on how Americans vote
 
-<img src="figs/title1.jpeg" width="500">
+<img src="figs/pic.png" width="500">
 
 ### [Project Description](doc/)
 This is the first and only *individual* (as opposed to *team*) this semester. 
 
 Term: Fall 2020
 
-+ Projec title: Lorem ipsum dolor sit amet
-+ This project is conducted by [your name]
++ Projec title: Do Millennials care about politics?
++ This project is conducted by Xinyuan Peng
 
-+ Project summary: [a short summary] Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
++ Project summary: “When It Comes to Politics, Do Millennials Care About Anything?”, the Article posted on the Atlantic caught our attention. Millennials, who were born between 1981 and 1996, have been labeled with countless negative qualities. One main criticism of millennials is their lack of political concern. However, is it true to label them being indifferent about politics? We are going to testify the argument based on the data from 2020 Exploratory Testing Survey.
 
 Following [suggestions](http://nicercode.github.io/blog/2013-04-05-projects/) by [RICH FITZJOHN](http://nicercode.github.io/about/#Team) (@richfitz). This folder is orgarnized as follows.
 
